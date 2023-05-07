@@ -1,0 +1,1 @@
+﻿Al hacer el cambio en el JAVASCRIPT ME QUEDA volver a cambiar  y agragar la llamada a Ajax para guardar la informacion en el AddOperation
