@@ -15,50 +15,12 @@
     this.result = 0;
 }
 
-CalculadoraCientifica.prototype.numeros = [
-    "=",
-    ".",
-    "0",
-    "3",
-    "2",
-    "1",
-    "6",
-    "5",
-    "4",
-    "9",
-    "8",
-    "7",
-];
+CalculadoraCientifica.prototype.numeros = ["=", ".", "0", "3", "2", "1", "6", "5", "4", "9", "8", "7",];
 
-CalculadoraCientifica.prototype.operacionesBasicas = ["DEL","AC","+","-","*","/","(",")",
-];
+CalculadoraCientifica.prototype.operacionesBasicas = ["DEL", "AC", "+", "-", "*", "/", "(", ")",];
 
-CalculadoraCientifica.prototype.operacionMath = [
-    "sen(",
-    "cos(",
-    "tg(",
-    "arctg(",
-    "√(",
-    "log(",
-    "ln(",
-    "±",
-    "ⅹ²",
-    "|ⅹ|",
-    "ⅹ³",
-    "⅟",
-    "%",
-    "‰",
-    "π",
-    "ɘ",
-    "ͳ",
-    "10ⁿ",
-    "Rd",
-    "x!",
-    "MC",
-    "MR",
-    "M+",
-    "M-",
-];
+
+CalculadoraCientifica.prototype.operacionMath = ["sen(", "cos(", "tg(", "arctg(", "√(", "log(", "ln(", "±", "ⅹ²", "|ⅹ|", "ⅹ³", "⅟", "%", "‰", "π", "ɘ", "ͳ", "10ⁿ", "Rd", "x!", "MC", "MR", "M+", "M-"];
 
 CalculadoraCientifica.prototype.letrasGriegas = ["π", "ɘ", "τ"];
 
@@ -87,10 +49,7 @@ CalculadoraCientifica.prototype.addNumero = function (valor) {
     var resultado = displayNow.innerText;
 
     if (
-        (displayNow.innerText == "0" ||
-            displayNow.innerText == "Error" ||
-            calc.letrasGriegas.includes(displaySave.innerText) ||
-            this.isResolve == true) &&
+        (displayNow.innerText == "0" || displayNow.innerText == "Error" || calc.letrasGriegas.includes(displaySave.innerText) || this.isResolve == true) &&
         !estaComprendido
     ) {
         displayNow.innerHTML = "";
@@ -101,10 +60,10 @@ CalculadoraCientifica.prototype.addNumero = function (valor) {
             this.ScreenValueSafe(displaySave, displayNow.innerText);
             this.isResolve = true;
             if (!displayNow.innerText == "0") {
-                this.ScreenValueSafe(
-                    displayNow,
-                    this.equal(displayNow.innerText)
-                );
+                var resultado = this.equal(displayNow.innerText);
+                CallAjaxAddOperation(displaySave.innerText, resultado)
+                this.ScreenValueSafe(displayNow, resultado);
+
             } else {
                 this.clear();
             }
@@ -169,12 +128,7 @@ CalculadoraCientifica.prototype.addNumero = function (valor) {
     }
 };
 
-CalculadoraCientifica.prototype.testRepeat = function (lista, valor) {
-    var ultimoCaracter = displayNow.innerText.slice(-1);
-    return (
-        lista.includes(valor) && lista.includes(ultimoCaracter) && valor != "("
-    );
-};
+CalculadoraCientifica.prototype.testRepeat = function (lista, valor) { return (lista.includes(valor) && lista.includes(displayNow.innerText.slice(-1)) && valor != "("); };
 
 CalculadoraCientifica.prototype.replaceCharacter = function (expresion) {
     var replaceChars = {
@@ -214,13 +168,9 @@ CalculadoraCientifica.prototype.clear = function () {
     displaySave.innerText = "0";
 };
 
-CalculadoraCientifica.prototype.absolute = function (expresion) {
-    return Math.abs(parseFloat(expresion));
-};
+CalculadoraCientifica.prototype.absolute = function (expresion) { return Math.abs(parseFloat(expresion)); };
 
-CalculadoraCientifica.prototype.moreless = function (expresion) {
-    return parseFloat(expresion) * -1;
-};
+CalculadoraCientifica.prototype.moreless = function (expresion) { return parseFloat(expresion) * -1; };
 
 CalculadoraCientifica.prototype.deleteLastOne = function (expresion) {
     if (expresion == "Error" || isNaN(expresion)) {
@@ -232,14 +182,10 @@ CalculadoraCientifica.prototype.deleteLastOne = function (expresion) {
 };
 
 CalculadoraCientifica.prototype.defaultButtons = function (expresion, valor) {
-    if (
-        !this.testRepeat(listaOperacionesBasicas, valor) &&
-        !this.testRepeat(listaOperacionesMath, valor)
-    ) {
+    if (!this.testRepeat(listaOperacionesBasicas, valor) && !this.testRepeat(listaOperacionesMath, valor)) {
         return (expresion += valor);
     } else {
         var ultimoCarac = expresion.slice(-1);
-        console.log(ultimoCarac);
         if (ultimoCarac == ")") {
             return (expresion += valor);
         } else {
@@ -278,10 +224,7 @@ CalculadoraCientifica.prototype.Random = function () {
     return Math.random().toFixed(5);
 };
 
-CalculadoraCientifica.prototype.calculatePercentage = function (
-    resultado,
-    porcentaje
-) {
+CalculadoraCientifica.prototype.calculatePercentage = function (resultado, porcentaje) {
     this.isResolve = true;
     return resultado * porcentaje;
 };
@@ -381,4 +324,19 @@ function createNumberElement(numero) {
         liBoton.setAttribute("onclick", "calc.addNumero('" + numero + "')");
     }
     return liBoton;
+}
+/*CALL TO AJAX */
+function CallAjaxAddOperation(expresionMatematica, Resultado) {
+    $.ajax({
+        type: "POST",
+        url: "/Home/Addition",
+        data: { operacion: expresionMatematica, resultado: Resultado },
+        success: function (result) {
+            console.log(result);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
 }
