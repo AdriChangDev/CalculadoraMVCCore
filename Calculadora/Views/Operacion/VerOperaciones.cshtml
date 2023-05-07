@@ -1,0 +1,80 @@
+﻿@{
+    IEnumerable<Operaciones> listaOperaciones = Model;
+    ViewData["Title"] = "Página de Operaciones";
+    int contador = 0;
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #003366;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    #selectAll {
+        margin-right: 5px;
+    }
+
+    .eliminar-button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .eliminar-button:hover {
+            background-color: #c82333;
+        }
+
+   
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="selectAll"></th>
+            <th>Número</th>
+            <th>Expresión Matemática</th>
+            <th>Resultado</th>
+            <th>Fecha y Hora</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in listaOperaciones)
+        {
+            <tr>
+                <td>@(contador + 1)</td>
+                <td>@item.ExpresionMatematica</td>
+                <td>@item.Resultado</td>
+                <td>@item.fechaHora</td>
+                <td>
+                    <form asp-area="" asp-controller="Operacion" asp-action="Delete" asp-route-id="@item.Id" method="post">
+                        <button type="submit" class="eliminar-button" >Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            contador++;
+        }
+    </tbody>
+</table>
