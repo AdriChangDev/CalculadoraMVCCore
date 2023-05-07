@@ -85,13 +85,20 @@ namespace Calculadora.Repository
 
         public void AddUserWithPasswd(string user, string psswd)
         {
+            try { 
             _context.Users.Add(new Usuario
             {
                 Email = user,
                 Password = psswd
             });
             _context.SaveChanges();
-        }
+            }
+            catch
+            {
+                throw;
+            }
+
+		}
 
         public void AddUserName(string user)
         {

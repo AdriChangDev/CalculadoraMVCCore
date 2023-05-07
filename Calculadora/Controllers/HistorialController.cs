@@ -18,7 +18,7 @@ namespace Calculadora.Controllers
 
         public IActionResult VerOperaciones()
         {
-            return View(_repository.GetOperationById(Estatico.IdConectado));
+            return View("VerOperaciones",_repository.GetOperationById(Estatico.IdConectado));
         }
 
         public IActionResult Delete(int id)

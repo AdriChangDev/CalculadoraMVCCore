@@ -42,7 +42,7 @@ namespace Calculadora.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Operador");
+                    b.ToTable("Operador", (string)null);
                 });
 
             modelBuilder.Entity("Calculadora.Models.Usuario", b =>
@@ -65,7 +65,7 @@ namespace Calculadora.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Calculadora.Models.Operaciones", b =>

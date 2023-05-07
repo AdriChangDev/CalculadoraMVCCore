@@ -27,8 +27,8 @@ namespace CalculadoraFuncional.Controllers
         {
             if ( string.IsNullOrEmpty(Estatico.IdConectado.ToString()))
             {
-                return Redirect("Index");
-            }
+                return View();
+			}
             else
             {
                 return View();

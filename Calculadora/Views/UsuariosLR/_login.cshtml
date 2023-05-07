@@ -105,7 +105,12 @@
             }
             else if (msjs != null && msjs == "error")
             {
-                <input type="text" class="input" value="Ha ocurrido algo en el proceso" readonly style="user-select:none; pointer-events:none; color:red;" />
+                @*<input type="text" class="input" value="No se ha encontrado su cuenta Para registrarse pinche" readonly style="user-select:none; pointer-events:none; color:red;" />
+                <a asp-action="Register" asp-controller="UsuariosLR">AQUI</a>*@
+                <label class="input" style="user-select:none; pointer-events:none; color:red;">
+                    No se ha encontrado su cuenta Para registrarse pinche <a style="color:blue; pointer-events:auto; text-decoration:none;" asp-action="Register" asp-controller="UsuariosLR">Aqui</a>
+                </label>
+
             }
             <button>Log-in</button>
         </form>

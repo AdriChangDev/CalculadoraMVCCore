@@ -20,14 +20,26 @@ namespace Calculadora.Controllers
 
         public IActionResult AddUser(string email, string password)
         {
-            _repository.AddUserWithPasswd(email, password);
-            var id = _repository.GetUsuarioIDByNamePasswd(email, password);
-            Estatico.IdConectado = id;
-            Estatico.IsVerified = true;
-            return Redirect("CalculadoraCon");
-        }
+            try
+            {
+				_repository.AddUserWithPasswd(email, password);
+				var id = _repository.GetUsuarioIDByNamePasswd(email, password);
+				Estatico.IdConectado = id;
+				Estatico.IsVerified = true;
+				return Redirect("/Home/CalculadoraCon");
+            }
+            catch
+            {
+				Estatico.IdConectado = 0;
+				Estatico.IsVerified = false;
+				return RedirectToAction("Register", new RouteValueDictionary { { "msjs", "NOADD" } });
+			}
+		}
 
-        public IActionResult Login(string email, string password)
+
+
+
+		public IActionResult Login(string email, string password)
         {
             try
             {
@@ -43,7 +55,7 @@ namespace Calculadora.Controllers
                     }
                     else
                     {
-                        return Redirect("/hHome/CalculadoraCon");
+                        return Redirect("/Home/CalculadoraCon");
                     }
                 }
                 else
@@ -59,14 +71,14 @@ namespace Calculadora.Controllers
             {
                 Estatico.IdConectado = 0;
                 Estatico.IsVerified = false;
-                return Redirect("Index");
-            }
+				return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", "error" } });
+			}
 
-        }
+		}
 
-        public IActionResult Register()
+        public IActionResult Register([FromQuery(Name = "msjs")] string? mensaje)
         {
-            return PartialView("_register");
+            return PartialView("_register",mensaje);
         }
 
         public IActionResult Conectarse([FromQuery(Name = "msjs")] string? mensaje)
