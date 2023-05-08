@@ -1,4 +1,5 @@
 ﻿using Calculadora.Data;
+using Calculadora.Intermediario;
 using Calculadora.Models;
 using System.Xml.Linq;
 
@@ -23,7 +24,7 @@ namespace Calculadora.Repository
             {
                 Console.Write("");
             }
-            }
+        }
 
         public void DeleteOperation(int id)
         {
@@ -36,20 +37,20 @@ namespace Calculadora.Repository
             return _context.Operador.Where(p => p.UsuarioId == id).ToList();
         }
 
-        public bool LoginUserPasswd(string user, string psswd)
+        public bool LoginUserPasswd(Usuario user)
         {
             bool login = true;
             try
             {
-                if (_context.Users.Any(l => l.Email == user && l.Password == psswd))
+                if (_context.Users.Any(l => (l.Email == user.Email || l.NombreUsuario == user.NombreUsuario) && l.Password == user.Password))
                 {
-                    login=true;
+                    login = true;
                 }
                 else
                 {
-                    login=false;
+                    login = false;
                 }
-                 
+
             }
             catch
             {
@@ -64,7 +65,7 @@ namespace Calculadora.Repository
             bool login = true;
             try
             {
-                if (_context.Users.Any(l => l.Email == name))
+                if (_context.Users.Any(l => l.Email == name || l.NombreUsuario == name))
                 {
                     return true;
                 }
@@ -78,38 +79,55 @@ namespace Calculadora.Repository
             }
             return login;
         }
-        public int GetUsuarioIDByNamePasswd(string name, string psswd)
-        {
-            return _context.Users.First(o => o.Email==name ).ID;
-        }
 
-        public void AddUserWithPasswd(string user, string psswd)
+
+        public void AddUserWithPasswd(Usuario user)
         {
-            try { 
-            _context.Users.Add(new Usuario
+            try
             {
-                Email = user,
-                Password = psswd
-            });
-            _context.SaveChanges();
+                _context.Users.Add(user);
+                _context.SaveChanges();
             }
             catch
             {
                 throw;
             }
 
-		}
-
-        public void AddUserName(string user)
+        }
+        public int GetIdByUser(Usuario user)
         {
-            _context.Users.Add(new Usuario
+            try
             {
-                Email = user,
-            });
+                return _context.Users.FirstOrDefault(l => l.Email == user.Email || l.NombreUsuario == user.NombreUsuario).ID;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public Usuario GetUserByID(int id)
+        {
+            try
+            {
+                return _context.Users.FirstOrDefault(l => l.ID == id);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public void DeleteUser()
+        {
+            Usuario id = _context.Users.First(l => l.ID == Estatico.IdConectado);
+            _context.Users.Remove(id);
             _context.SaveChanges();
         }
+        public void EditarUsuario(Usuario user)
+        {
+            _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
 
-
-
+        }
     }
+
 }

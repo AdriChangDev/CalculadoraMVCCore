@@ -5,12 +5,14 @@ namespace Calculadora.Repository
     public interface ICalculadoraRepository
     {
         public void DeleteOperation(int id);
+        public void DeleteUser();
         public void AddOperation(Operaciones ope);
         public IEnumerable<Operaciones> GetOperationById(int id);
-        public bool LoginUserPasswd(string user, string psswd);
-        public void AddUserWithPasswd(string user, string psswd);
-        public void AddUserName(string user);
+        public bool LoginUserPasswd(Usuario user);
+        public void AddUserWithPasswd(Usuario user);
         public bool LoginName(string name);
-        public int GetUsuarioIDByNamePasswd(string user, string psswd);
+        public int GetIdByUser(Usuario user);
+        public Usuario GetUserByID(int id);
+        public void EditarUsuario(Usuario user);
     }
 }

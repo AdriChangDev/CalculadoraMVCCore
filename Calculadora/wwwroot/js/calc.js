@@ -20,7 +20,7 @@ CalculadoraCientifica.prototype.numeros = ["=", ".", "0", "3", "2", "1", "6", "5
 CalculadoraCientifica.prototype.operacionesBasicas = ["DEL", "AC", "+", "-", "*", "/", "(", ")",];
 
 
-CalculadoraCientifica.prototype.operacionMath = ["sen(", "cos(", "tg(", "arctg(", "√(", "log(", "ln(", "±", "ⅹ²", "|ⅹ|", "ⅹ³", "⅟", "%", "‰", "π", "ɘ", "ͳ", "10ⁿ", "Rd", "x!", "MC", "MR", "M+", "M-"];
+CalculadoraCientifica.prototype.operacionMath = ["sen(", "cos(", "tg(", "∛(", "√(", "log(", "ln(", "±", "ⅹ²", "|ⅹ|", "ⅹ³", "⅟", "%", "‰", "π", "ɘ", "ͳ", "10ⁿ", "Rd", "x!", "MC", "MR", "M+", "M-"];
 
 CalculadoraCientifica.prototype.letrasGriegas = ["π", "ɘ", "τ"];
 
@@ -72,7 +72,6 @@ CalculadoraCientifica.prototype.addNumero = function (valor) {
             this.clear();
             break;
         case "DEL":
-
             this.ScreenValueSafe(displayNow, this.deleteLastOne(resultado));
             break;
         case "|ⅹ|":
@@ -90,25 +89,31 @@ CalculadoraCientifica.prototype.addNumero = function (valor) {
             break;
         case "ⅹ²":
             this.ScreenValueSafe(displayNow, this.elevateGeneral(resultado, 2));
+            CallAjaxAddOperation(resultado + "²", this.elevateGeneral(resultado, 2))
             break;
         case "ⅹ³":
             this.ScreenValueSafe(displayNow, this.elevateGeneral(resultado, 3));
-            displayNow.style.color = "black";
+            CallAjaxAddOperation(resultado + "³", this.elevateGeneral(resultado, 3))
             break;
         case "⅟":
             this.ScreenValueSafe(displayNow, this.oneDivided(resultado));
+            CallAjaxAddOperation("⅟" + resultado, this.oneDivided(resultado))
             break;
         case "%":
             this.ScreenValueSafe(displayNow, this.calculatePercentage(resultado, 0.01));
+            CallAjaxAddOperation(resultado + "%", this.calculatePercentage(resultado, 0.01));
             break;
         case "‰":
             this.ScreenValueSafe(displayNow, this.calculatePercentage(resultado, 0.001));
+            CallAjaxAddOperation(resultado + "‰", this.calculatePercentage(resultado, 0.001));
             break;
         case "10ⁿ":
             this.ScreenValueSafe(displayNow, this.elevateGeneral(10, resultado));
+            CallAjaxAddOperation("10^" + resultado, this.elevateGeneral(10, resultado));
             break;
         case "x!":
             this.ScreenValueSafe(displayNow, this.factorialNumber(resultado));
+            CallAjaxAddOperation(resultado + "!", this.factorialNumber(resultado))
             break;
         case "Rd":
             this.ScreenValueSafe(displayNow, this.Random());
@@ -138,7 +143,7 @@ CalculadoraCientifica.prototype.replaceCharacter = function (expresion) {
         sen: "Math.sin",
         cos: "Math.cos",
         tg: "Math.tanh",
-        arctg: "Math.atan2",
+        "∛": "Math.cbrt",
         "√": "Math.sqrt",
         log: "Math.log10",
         ln: "Math.log",
@@ -173,7 +178,7 @@ CalculadoraCientifica.prototype.absolute = function (expresion) { return Math.ab
 CalculadoraCientifica.prototype.moreless = function (expresion) { return parseFloat(expresion) * -1; };
 
 CalculadoraCientifica.prototype.deleteLastOne = function (expresion) {
-    if (expresion == "Error" || isNaN(expresion)) {
+    if (expresion == "Error" || !isNaN(expresion)) {
         return "0";
     } else {
         expresionNueva = this.isLastOneZero(expresion);

@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "_Layout";
+    Usuario user = Model;
+}
+@section CSS{
+    <link rel="stylesheet" type="text/css" href="~/css/StyleSheet.css" asp-append-version="true" />
+}
+<div class="container">
+    <h1>Información del usuario</h1>
+    <form method="post" action="/UsuariosLR/Editar">
+        <div class="user-info">
+            <p><strong>Nombre de usuario:</strong> <span id="username">@user.NombreUsuario</span></p>
+            <p><strong>Email:</strong> <span id="email">@user.NombreUsuario</span></p>
+            <p><strong>Contraseña:</strong> <span id="password">@user.Password</span></p>
+            <div style="display: flex; flex-direction: row;justify-content: space-evenly;">
+                <button type="submit" class="btn btn-primary">Editar</button>
+                <button class="btn btn-primary" style="background-color:red;" onclick="COnfirmacionEliminar()">Eliminar</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script>
+        function COnfirmacionEliminar() {
+            if (confirm("¿Estas seguro de querer eliminar la cuenta?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/UsuariosLR/DeleteConfirm",
+                    success: function (result) {
+                        console.log(result);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/UsuariosLR/WatchUserAccount",
+                    success: function (result) {
+                        console.log(result);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+        }
+
+    </script>
+}

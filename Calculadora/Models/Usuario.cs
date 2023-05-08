@@ -11,11 +11,7 @@ namespace Calculadora.Models
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        [Required]
-        [StringLength(10, MinimumLength = 6)]
-        [RegularExpression(@"^[a-zA-Z0-9!@#$%^&*()_+=\[{\]};:<>|./?,-]+$",
-   ErrorMessage = "La contraseña debe contener al menos 6 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un caracter especial (!@#$%^&*()_+=[]{};:<>|./?,-)")]
+        public string NombreUsuario { get; set; }
 
         public string Password { get; set; }
 

@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "_Layout";
+    Usuario user = Model;
+}
+@section CSS{
+    <link rel="stylesheet" type="text/css" href="~/css/StyleSheet.css" asp-append-version="true" />
+}
+<div class="container">
+    <form method="post" action="/UsuariosLR/ConfirmarEdicion">
+        <h1>Información del usuario</h1>
+        <div class="user-info">
+            <p>
+                <strong>Nombre de usuario:</strong>
+                <input type="text" value="@user.NombreUsuario" name="NombreUsuario" />
+            </p>
+            <p>
+                <strong>Email:</strong>
+                <input type="email" value="@user.Email" name="Email" />
+            </p>
+            <p>
+                <strong>Contraseña:</strong>
+                <input type="password" value="@user.Password" name="Password" />
+            </p>         
+                <button class="btn btn-primary">Editar</button>
+        </div>
+    </form>
+</div>
+

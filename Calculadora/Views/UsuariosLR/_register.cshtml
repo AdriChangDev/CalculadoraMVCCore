@@ -90,6 +90,7 @@
         }
     </style>
 </head>
+
 <body>
     <main>
         <div class="container">
@@ -97,16 +98,39 @@
                 <span class="title">(Registro)😎➕</span>
                 <span class="sub mb">Si quieres guardar tus operaciones debes Registrarte 😁</span>
                 <img class="avatar" alt="Logo Administrador" src="~/img/logo.png" width="90px" height="90px" />
-                <input type="email" name="email" class="input" placeholder="email">
-                <input type="password" name="password" class="input" placeholder="password">
-                <span class="sub">Already have an account ? <a asp-action="Conectarse" asp-controller="UsuariosLR">Log in</a></span>
+                <label for="email">Correo electrónico:</label>
+                <input type="email" name="Email" class="input" placeholder="Email" required>
+                <label for="nombreUsuario">Nombre de Usuario:</label>
+                <input type="text" name="NombreUsuario" class="input" placeholder="Username" required>
+                <label for="password">Contraseña:</label>
+                <input type="password" name="Password" class="input" placeholder="Contraseña" required>
+                <label for="confirm_password">Repite contraseña:</label>
+                <input type="password" name="confirm_password" class="input" placeholder="Repite contraseña" onkeyup='checkPassword();' required>
+                <span class="sub">¿Ya tienes una cuenta? <a asp-action="Conectarse" asp-controller="UsuariosLR">Inicia sesión</a></span>
+                <div id="warning"></div>
                 @if (msjs != null && msjs == "NOADD")
                 {
-                    <input type="text" class="input" value="Ya existe un usuario con ese email" readonly style="user-select:none; pointer-events:none; color:red;" />
+                    <input type="text" class="input" value="Ya existe un usuario con ese email/nombre de usuario" readonly style="user-select:none; pointer-events:none; color:red;" />
                 }
-                <button>Register</button>
+                <button id="register-btn" disabled>Registrar</button>
             </form>
         </div>
     </main>
+    <script>
+        function checkPassword() {
+            var password = document.querySelector('input[name=Password]');
+            var confirm_password = document.querySelector('input[name=confirm_password]');
+            var warning = document.querySelector('#warning');
+            var register_btn = document.querySelector('#register-btn');
+            if (password.value != confirm_password.value) {
+                warning.textContent = "Las contraseñas no coinciden";
+                warning.style.color = "red";
+                register_btn.disabled = true;
+            } else {
+                warning.textContent = "";
+                register_btn.disabled = false;
+            }
+        }
+    </script>
 </body>
 </html>

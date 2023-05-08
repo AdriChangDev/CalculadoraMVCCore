@@ -2,7 +2,7 @@
 {
     public static class Estatico
     {
-        public static bool IsVerified { get; set; } = false;
+        public static string UserName { get; set; } = "";
         public static int IdConectado { get; set; } = 0;
     }
 }
