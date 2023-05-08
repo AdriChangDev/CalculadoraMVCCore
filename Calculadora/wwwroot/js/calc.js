@@ -63,7 +63,6 @@ CalculadoraCientifica.prototype.addNumero = function (valor) {
                 var resultado = this.equal(displayNow.innerText);
                 CallAjaxAddOperation(displaySave.innerText, resultado)
                 this.ScreenValueSafe(displayNow, resultado);
-
             } else {
                 this.clear();
             }
@@ -75,7 +74,6 @@ CalculadoraCientifica.prototype.addNumero = function (valor) {
             this.ScreenValueSafe(displayNow, this.deleteLastOne(resultado));
             break;
         case "|ⅹ|":
-
             var numero = this.absolute(resultado);
             if (isNaN(numero)) {
                 this.ScreenValueSafe(displayNow, 0);
