@@ -25,9 +25,9 @@ namespace CalculadoraFuncional.Controllers
 
 		public IActionResult CalculadoraCon()
 		{
-			if (string.IsNullOrEmpty(Estatico.IdConectado.ToString()))
+			if (Estatico.idOperacion!=null)
 			{
-				return View();
+				return View(_repository.GetOperacionesById(Estatico.idOperacion));
 			}
 			else
 			{
@@ -64,6 +64,11 @@ namespace CalculadoraFuncional.Controllers
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
+		public IActionResult DarValor(int id)
+		{
+			Estatico.idOperacion = id;
+            return RedirectToAction("CalculadoraCon","Home");
+        }
 
 	}
 }

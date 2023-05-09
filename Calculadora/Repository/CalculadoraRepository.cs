@@ -32,14 +32,14 @@ namespace Calculadora.Repository
             _context.SaveChanges();
         }
 
-        public IEnumerable<Operaciones> GetOperationById(int id)
+        public IEnumerable<Operaciones> GetOperationById()
         {
-            return _context.Operador.Where(p => p.UsuarioId == id).ToList();
+            return _context.Operador.Where(p => p.UsuarioId == Estatico.IdConectado).ToList();
         }
 
         public bool LoginUserPasswd(Usuario user)
         {
-            bool login = true;
+            bool login = false;
             try
             {
                 if (_context.Users.Any(l => (l.Email == user.Email || l.NombreUsuario == user.NombreUsuario) && l.Password == user.Password))
@@ -105,11 +105,11 @@ namespace Calculadora.Repository
                 throw;
             }
         }
-        public Usuario GetUserByID(int id)
+        public Usuario GetUserByID()
         {
             try
             {
-                return _context.Users.FirstOrDefault(l => l.ID == id);
+                return _context.Users.FirstOrDefault(l => l.ID == Estatico.IdConectado);
             }
             catch
             {
@@ -128,6 +128,15 @@ namespace Calculadora.Repository
             _context.SaveChanges();
 
         }
-    }
+        public Operaciones GetOperacionesById()
+        {
+            return _context.Operador.FirstOrDefault(l => l.Id == Estatico.idOperacion);
+        }
+        public Operaciones GetOperacionesById(int id)
+        {
+            return _context.Operador.FirstOrDefault(l => l.Id == id);
 
+        }
+
+    }
 }

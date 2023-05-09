@@ -18,26 +18,25 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="CalculadoraCon">
-                    <img class="navbar-brand" src="~/img/logo.png" alt="Logo Calculadora" width="120px" height="130px" />
+                    <img class="navbar-brand" src="~/img/logo.png" alt="Logo Calculadora" width="90px" height="100px" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 ">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CalculadoraCon" style="font-family: 'Material Symbols Outlined';font-size: 22px;">Calculadora</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Historial" asp-action="VerOperaciones" style="font-family: 'Material Symbols Outlined';font-size: 22px;">HISTORIAL</a>
+                        </li>
+                    </ul>
                     @if (Estatico.IdConectado != 0)
                     {
-                        <ul class="navbar-nav flex-grow-1 ">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CalculadoraCon" style="font-family: 'Material Symbols Outlined';font-size: 22px;">Calculadora</a>
-                            </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Historial" asp-action="VerOperaciones" style="font-family: 'Material Symbols Outlined';font-size: 22px;">HISTORIAL</a>
-                            </li>
-
-
-                        </ul>
                         <ul class="navbar-nav ">
                             <li class="nav-item ">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UsuariosLR" asp-action="WatchUserAccount" style="font-family: 'Material Symbols Outlined';font-size: 18px;">
@@ -49,10 +48,11 @@
 
                             <li class="nav-item ">
                                 <!--Cuando le de aqui al  enlace lo que tiene que hacer es poner el Estatico.IdConectado a 0-->
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" style="font-family: 'Material Symbols Outlined';font-size: 22px;">
-                                    <span class="material-symbols-outlined">
-                                        logout
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" style="font-family: 'Material Symbols Outlined';font-size: 18px;">
+                                    <span class="" style="vertical-align: bottom;">
+                                        Cerrar Sesion
                                     </span>
+
                                 </a>
                             </li>
 
@@ -60,17 +60,11 @@
                     }
                     else
                     {
-                        <ul class="navbar-nav flex-grow-1 ">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CalculadoraCon" style="font-family: 'Material Symbols Outlined';font-size: 22px;">Calculadora</a>
-                            </li>
-                        </ul>
+                        
                         <ul class="navbar-nav  ">
                             <li class="nav-item  ">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="UsuariosLR" asp-action="Conectarse" style="font-family: 'Material Symbols Outlined';font-size: 22px;">
-                                    <span class="material-symbols-outlined">
-                                        login
-                                    </span>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UsuariosLR" asp-action="Conectarse" style="font-family: 'Material Symbols Outlined';font-size: 15px;">
+                                    Iniciar Sesion
                                 </a>
                             </li>
                         </ul>

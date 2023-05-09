@@ -22,6 +22,7 @@
             padding: 30px 20px;
             width: 34rem;
             border: 1px dotted black;
+            box-shadow: 100px 100px 80px rgba(0, 0, 0, 0.03);
         }
 
         .title {
@@ -55,6 +56,7 @@
             align-self: center;
             padding: 6px;
             cursor: pointer;
+            box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.015),100px 100px 80px rgba(0, 0, 0, 0.03);
         }
 
         .form button {
@@ -68,6 +70,7 @@
             padding: 16px 10px;
             background-color: rgb(247, 243, 243);
             border-radius: 10px;
+            box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.015),100px 100px 80px rgba(0, 0, 0, 0.03);
         }
 
         button {
@@ -92,7 +95,9 @@
     <main>
         <div class="container">
             <form class="form" method="post" action="/UsuariosLR/AddUser">
-                <span class="title" style="font-family:'LOGIN'; font-size:2rem"> REGISTRO 😎</span>
+                <span class="title">(Registro)😎➕</span>
+                <span class="sub mb">Si quieres guardar tus operaciones debes Registrarte 😁</span>
+                <img class="avatar" alt="Logo Administrador" src="~/img/logo.png" width="90px" height="90px" />
                 <label for="email">Correo electrónico:</label>
                 <input type="email" name="Email" class="input" placeholder="Email" required>
                 <label for="nombreUsuario">Nombre de Usuario:</label>

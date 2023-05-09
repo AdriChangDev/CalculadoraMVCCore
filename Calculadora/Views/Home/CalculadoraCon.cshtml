@@ -1,4 +1,9 @@
-﻿<body>
+﻿@{
+    Operaciones us = Model;
+    ViewData["Title"] = "Calculadora";
+}
+
+<body>
     <main style="display: flex; margin: auto; justify-content: center;">
         <div class="calculadoraCientifica">
             <div class="cabeza" style="margin-bottom:10px;">
@@ -12,7 +17,15 @@
             </div>
             <div class="screen">
                 <label type="text" id="resultSave" readonly> </label>
-                <label type="text" id="result" readonly>0</label>
+                @if (us != null)
+                {
+                    <label type="text" id="result" readonly>@us.ExpresionMatematica</label>
+                }
+                else
+                {
+                    <label type="text" id="result" readonly>0</label>
+                }
+
             </div>
             <div class="button">
                 <div id="hidde">
@@ -27,6 +40,7 @@
     </main>
 </body>
 @section Scripts{
+
     <script src="~/js/calc.js"></script>
 
 }

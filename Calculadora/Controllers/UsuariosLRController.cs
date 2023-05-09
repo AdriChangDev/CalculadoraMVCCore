@@ -24,16 +24,26 @@ namespace Calculadora.Controllers
         {
             try
             {
-                _repository.AddUserWithPasswd(user);
-                Estatico.IdConectado = user.ID;
-                Estatico.UserName = user.NombreUsuario;
-                return Redirect("/Home/CalculadoraCon");
+                if (Estatico.IdConectado != 0 && user==null)
+                {
+                    return Redirect("WatchUserAccount");
+                }
+                else
+                {
+                    _repository.AddUserWithPasswd(user);
+                    Estatico.IdConectado = _repository.GetIdByUser(user);
+                    Estatico.UserName = user.NombreUsuario;
+                    return Redirect("/Home/CalculadoraCon");
+                }
+
+
+
             }
             catch
             {
                 Estatico.IdConectado = 0;
                 Estatico.UserName = "";
-                return RedirectToAction("Register", new RouteValueDictionary { { "msjs", "NOADD" } });
+                return RedirectToAction("_register", new RouteValueDictionary { { "msjs", "NOADD" } });
             }
         }
 
@@ -49,32 +59,51 @@ namespace Calculadora.Controllers
 
                     if (!_repository.LoginUserPasswd(user))
                     {
-                        Estatico.IdConectado = _repository.GetIdByUser(user);
-                        Estatico.UserName = user.NombreUsuario;
-                        string msjs = "noLogin";
-                        return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", msjs } });
+                        if (!_repository.LoginName(user.NombreUsuario))
+                        {
+                            Estatico.IdConectado = 0;
+                            Estatico.UserName = "";
+                            string msjs = "error";
+                            return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", msjs } });
+                        }
+                        else
+                        {
+                            Estatico.IdConectado = 0;
+                            Estatico.UserName = "";
+                            string msjs = "noLogin";
+                            return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", msjs } });
+                        }
                     }
                     else
                     {
                         Estatico.IdConectado = _repository.GetIdByUser(user);
-                        Estatico.UserName = _repository.GetUserByID(Estatico.IdConectado).NombreUsuario;
+                        Estatico.UserName = _repository.GetUserByID().NombreUsuario;
                         return Redirect("/Home/CalculadoraCon");
                     }
                 }
                 else
                 {
-                    Estatico.IdConectado = 0;
-                    Estatico.UserName = "";
-                    string msjs = "error";
-                    return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", msjs } });
+                    if (Estatico.IdConectado != 0)
+                    {
+                        return Redirect("WatchUserAccount");
+                    }
+                    else
+                    {
+                        Estatico.IdConectado = 0;
+                        Estatico.UserName = "";
+                        string msjs = "error";
+                        return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", msjs } });
+                    }
                 }
 
             }
             catch (Exception)
             {
+
                 Estatico.IdConectado = 0;
                 Estatico.UserName = "";
                 return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", "error" } });
+
             }
 
         }
@@ -90,20 +119,20 @@ namespace Calculadora.Controllers
         }
         public IActionResult WatchUserAccount()
         {
-            return View(_repository.GetUserByID(Estatico.IdConectado));
+            return View(_repository.GetUserByID());
         }
         public IActionResult Editar()
         {
-            return View("Editar", _repository.GetUserByID(Estatico.IdConectado));
+            return View("Editar", _repository.GetUserByID());
         }
         public IActionResult DeleteConfirm()
         {
             _repository.DeleteUser();
-            return Redirect("/Home/Index");
+            return RedirectToAction("Home/Index");
         }
         public IActionResult ConfirmarEdicion(Usuario user)
         {
-            Usuario id = _repository.GetUserByID(Estatico.IdConectado);
+            Usuario id = _repository.GetUserByID();
             id.NombreUsuario = user.NombreUsuario;
             id.Email = user.Email;
             id.Password = user.Password;

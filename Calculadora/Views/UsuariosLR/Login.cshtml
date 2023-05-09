@@ -4,9 +4,7 @@
 }
 <html>
 <head>
-    <link href="~/css/site.css" type="text/css" />
     <style>
-        
 
         .container {
             display: flex;
@@ -24,6 +22,7 @@
             padding: 30px 20px;
             width: 34rem;
             border: 1px dotted black;
+            box-shadow: 100px 100px 80px rgba(0, 0, 0, 0.03);
         }
 
 
@@ -57,6 +56,7 @@
             border-radius: 100%;
             align-self: center;
             padding: 6px;
+            box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.015),100px 100px 80px rgba(0, 0, 0, 0.03);
         }
 
         .form button {
@@ -70,6 +70,7 @@
             padding: 16px 10px;
             background-color: rgb(247, 243, 243);
             border-radius: 10px;
+            box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.015),100px 100px 80px rgba(0, 0, 0, 0.03);
         }
 
         button {
@@ -92,13 +93,15 @@
 <body>
     <main>
         <form class="form" method="post" action="/UsuariosLR/Login">
-            <span class="title" style="font-family:'LOGIN'; font-size:2rem"> INICIO DE SESION😎</span>
+            <span class="title">(Log-In)😎🔎</span>
+            <span class="sub mb">Si quieres guardar tus operaciones debes Loggearte 😁</span>
+            <img class="avatar" alt="Logo Administrador" src="~/img/logo.png" width="90px" height="90px" />
             <label for="email">Correo electrónico o Nombre Usuario:</label>
-            <input id="email" type="text" name="Email" class="input" placeholder="Email or Username" onkeyup="copyEmail()">
-            <input type="text" name="NombreUsuario" class="input" placeholder="Username"  style="display:none;">
+            <input id="email" type="text" name="Email" class="input" placeholder="email" onkeyup="copyEmail()">
+            <input type="text" name="NombreUsuario" class="input" placeholder="Username" style="display:none;">
             <label for="password">Contraseña:</label>
             <input type="password" name="Password" class="input" placeholder="password">
-            <span class="sub">¿No tienes Cuenta ? <a asp-action="Register" asp-controller="UsuariosLR">Registrate</a></span>
+            <span class="sub">Don't you have Account ? <a asp-action="Register" asp-controller="UsuariosLR">Sign in</a></span>
             @if (msjs != null && msjs == "noLogin")
             {
                 <input type="text" class="input" value="Usuario y/o Contraseña incorrecto/s" readonly style="user-select:none; pointer-events:none; color:red;" />

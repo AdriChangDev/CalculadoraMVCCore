@@ -20,5 +20,9 @@ body {
 li {
     text-decoration: none;
 }
+@font-face {
+    font-family: "LOGIN";
+    src: url(../fonts/LEDCalculator.ttf);
+}
 
 
