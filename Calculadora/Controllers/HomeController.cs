@@ -25,7 +25,7 @@ namespace CalculadoraFuncional.Controllers
 
 		public IActionResult CalculadoraCon()
 		{
-			if (Estatico.idOperacion!=null)
+			if (Estatico.idOperacion!=0)
 			{
 				return View(_repository.GetOperacionesById(Estatico.idOperacion));
 			}
@@ -37,6 +37,7 @@ namespace CalculadoraFuncional.Controllers
 
 		public IActionResult Index()
 		{
+			
 			Estatico.IdConectado = 0;
 			Estatico.UserName = "";
 			return Redirect("/Home/CalculadoraCon");

@@ -1,1 +1,2 @@
-﻿Me queda corregir que cuando se eleime un usuario , te redirija a la calculadora nomrla
+﻿Me queda corregir que cuando se eleime un usuario , te redirija a la calculadora normal
+y ademas me dalta corregir  la validacion para que vaya correcto

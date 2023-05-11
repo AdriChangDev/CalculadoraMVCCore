@@ -1,9 +1,12 @@
-﻿using Calculadora.Intermediario;
-using Calculadora.Models;
-using Calculadora.Repository;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Core.Types;
+using Microsoft.AspNetCore.Hosting;
+using System.Diagnostics;
+using Calculadora.Data;
+using Calculadora.Models;
+using Calculadora.Intermediario;
+using Calculadora.Repository;
+
 
 namespace Calculadora.Controllers
 {
@@ -114,13 +117,30 @@ namespace Calculadora.Controllers
 
         public IActionResult Register(string? mensaje, Usuario? user)
         {
-            ViewBag.mensaje = mensaje;
-            return View(user);
+            if (Estatico.IdConectado == 0)
+            {
+                var mensajes = mensaje;
+                ViewBag.Message = mensajes;
+                return View(user);
+            }
+            else
+            {
+                return Redirect("WatchUserAccount");
+
+            }
         }
 
         public IActionResult Conectarse()
         {
-            return View("Login");
+            if (Estatico.IdConectado == 0)
+            {
+                return View("Login");
+            }
+            else
+            {
+                return View("WatchUserAccount");
+            }
+
         }
         public IActionResult WatchUserAccount()
         {
@@ -135,7 +155,7 @@ namespace Calculadora.Controllers
             _repository.DeleteUser();
             Estatico.UserName = "";
             Estatico.IdConectado = 0;
-            return RedirectToAction("CalculadoraCon", "Home");
+            return Redirect("/Home/CalculadoraCon");
         }
         public IActionResult ConfirmarEdicion(Usuario user)
         {

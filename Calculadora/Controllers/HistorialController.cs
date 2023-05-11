@@ -1,6 +1,12 @@
-﻿using Calculadora.Intermediario;
-using Calculadora.Repository;
+﻿
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
+using System.Diagnostics;
+using Calculadora.Data;
+using Calculadora.Models;
+using Calculadora.Intermediario;
+using Calculadora.Repository;
+
 
 namespace Calculadora.Controllers
 {
