@@ -256,6 +256,7 @@ CalculadoraCientifica.prototype.ScreenValueNow = function (ScreenNow, value) {
 
 CalculadoraCientifica.prototype.ScreenValueSafe = function (ScreenSave, value) {
     ScreenSave.innerText = value;
+    ScreenSave.style.color = "black";
 };
 
 CalculadoraCientifica.prototype.changeBasic = function () {

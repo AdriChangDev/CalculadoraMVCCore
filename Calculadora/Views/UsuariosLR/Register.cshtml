@@ -3,8 +3,7 @@
 
     Layout = "_Layout";
 }
-<html>
-<head>
+@section css{
     <style>
         .container {
             display: flex;
@@ -88,12 +87,8 @@
         #file {
             display: none;
         }
-    </style>
-</head>
-
-<body>
-    <main>
-        <div class="container">
+}
+    <div class="container">
             <form class="form" method="post" action="/UsuariosLR/AddUser">
                 <span class="title">(Registro)😎➕</span>
                 <span class="sub mb">Si quieres guardar tus operaciones debes Registrarte 😁</span>
@@ -115,7 +110,8 @@
                 <button id="register-btn" disabled>Registrar</button>
             </form>
         </div>
-    </main>
+   
+    @section Scripts{
     <script>
         function checkPassword() {
             var password = document.querySelector('input[name=Password]');
@@ -130,7 +126,7 @@
                 warning.textContent = "";
                 register_btn.disabled = false;
             }
+        
         }
     </script>
-</body>
-</html>
+      }

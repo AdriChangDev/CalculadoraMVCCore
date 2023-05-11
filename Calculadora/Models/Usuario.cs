@@ -12,7 +12,7 @@ namespace Calculadora.Models
         [EmailAddress(ErrorMessage = "El campo Email no tiene un formato válido.Debe contener un @ y un .")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "El Nombre de usuario no peued.")]
+        [Required(ErrorMessage = "El Nombre de usuario no puede estar vacio.")]
         [StringLength(32, MinimumLength = 3, ErrorMessage = "El Nombre de Usuario debe tener entre 3 y 32 caracteres.")]
         public string NombreUsuario { get; set; }
 

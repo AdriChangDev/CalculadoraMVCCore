@@ -24,7 +24,7 @@ namespace Calculadora.Controllers
         {
             try
             {
-                if (Estatico.IdConectado != 0 && user==null)
+                if (Estatico.IdConectado != 0 && user == null)
                 {
                     return Redirect("WatchUserAccount");
                 }
@@ -128,7 +128,9 @@ namespace Calculadora.Controllers
         public IActionResult DeleteConfirm()
         {
             _repository.DeleteUser();
-            return RedirectToAction("Home/Index");
+            Estatico.UserName = "";
+            Estatico.IdConectado = 0;
+            return RedirectToAction("CalculadoraCon", "Home");
         }
         public IActionResult ConfirmarEdicion(Usuario user)
         {
