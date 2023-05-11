@@ -2,8 +2,7 @@
     string msjs = Model;
     Layout = "_Layout";
 }
-<html>
-<head>
+@section css{
     <style>
 
         .container {
@@ -89,41 +88,39 @@
             display: none;
         }
     </style>
-</head>
-<body>
-    <main>
-        <form class="form" method="post" action="/UsuariosLR/Login">
-            <span class="title">(Log-In)😎🔎</span>
-            <span class="sub mb">Si quieres guardar tus operaciones debes Loggearte 😁</span>
-            <img class="avatar" alt="Logo Administrador" src="~/img/logo.png" width="90px" height="90px" />
-            <label for="email">Correo electrónico o Nombre Usuario:</label>
-            <input id="email" type="text" name="Email" class="input" placeholder="email" onkeyup="copyEmail()">
-            <input type="text" name="NombreUsuario" class="input" placeholder="Username" style="display:none;">
-            <label for="password">Contraseña:</label>
-            <input type="password" name="Password" class="input" placeholder="password">
-            <span class="sub">Don't you have Account ? <a asp-action="Register" asp-controller="UsuariosLR">Sign in</a></span>
-            @if (msjs != null && msjs == "noLogin")
-            {
-                <input type="text" class="input" value="Usuario y/o Contraseña incorrecto/s" readonly style="user-select:none; pointer-events:none; color:red;" />
-            }
-            else if (msjs != null && msjs == "error")
-            {
-                @*<input type="text" class="input" value="No se ha encontrado su cuenta Para registrarse pinche" readonly style="user-select:none; pointer-events:none; color:red;" />
-            <a asp-action="Register" asp-controller="UsuariosLR">AQUI</a>*@
-                <label class="input" style="user-select:none; pointer-events:none; color:red;">
-                    No se ha encontrado su cuenta Para registrarse pinche <a style="color:blue; pointer-events:auto; text-decoration:none;" asp-action="Register" asp-controller="UsuariosLR">Aqui</a>
-                </label>
-
-            }
-            <button>Log-in</button>
-        </form>
-    </main>
-</body>
-<script>
-    function copyEmail() {
-        var email = document.getElementById("email").value;
-        document.getElementsByName("NombreUsuario")[0].value = email;
     }
-</script>
 
-</html>
+<form class="form" method="post" action="/UsuariosLR/Login">
+    <span class="title">(Log-In)😎🔎</span>
+    <span class="sub mb">Si quieres guardar tus operaciones debes Loggearte 😁</span>
+    <img class="avatar" alt="Logo Administrador" src="~/img/logo.png" width="90px" height="90px" />
+    <label for="email">Correo electrónico o Nombre Usuario:</label>
+    <input id="email" type="text" name="Email" class="input" placeholder="email" onkeyup="copyEmail()">
+    <input type="text" name="NombreUsuario" class="input" placeholder="Username" style="display:none;">
+    <label for="password">Contraseña:</label>
+    <input type="password" name="Password" class="input" placeholder="password">
+    <span class="sub">Don't you have Account ? <a asp-action="Register" asp-controller="UsuariosLR">Sign in</a></span>
+    @if (msjs != null && msjs == "noLogin")
+    {
+        <input type="text" class="input" value="Usuario y/o Contraseña incorrecto/s" readonly style="user-select:none; pointer-events:none; color:red;" />
+    }
+    else if (msjs != null && msjs == "error")
+    {
+        @*<input type="text" class="input" value="No se ha encontrado su cuenta Para registrarse pinche" readonly style="user-select:none; pointer-events:none; color:red;" />
+    <a asp-action="Register" asp-controller="UsuariosLR">AQUI</a>*@
+        <label class="input" style="user-select:none; pointer-events:none; color:red;">
+            No se ha encontrado su cuenta Para registrarse pinche <a style="color:blue; pointer-events:auto; text-decoration:none;" asp-action="Register" asp-controller="UsuariosLR">Aqui</a>
+        </label>
+
+    }
+    <button>Log-in</button>
+</form>
+
+@section Scripts{
+    <script>
+        function copyEmail() {
+            var email = document.getElementById("email").value;
+            document.getElementsByName("NombreUsuario")[0].value = email;
+        }
+    </script>
+        }

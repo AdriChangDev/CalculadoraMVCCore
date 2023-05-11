@@ -30,12 +30,19 @@ namespace Calculadora.Controllers
                 }
                 else
                 {
-                    _repository.AddUserWithPasswd(user);
-                    Estatico.IdConectado = _repository.GetIdByUser(user);
-                    Estatico.UserName = user.NombreUsuario;
-                    return Redirect("/Home/CalculadoraCon");
-                }
+                    if (ModelState.IsValid)
+                    {
+                        _repository.AddUserWithPasswd(user);
+                        Estatico.IdConectado = _repository.GetIdByUser(user);
+                        Estatico.UserName = user.NombreUsuario;
+                        return Redirect("/Home/CalculadoraCon");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Register", new { user = user });
 
+                    }
+                }
 
 
             }
@@ -43,7 +50,7 @@ namespace Calculadora.Controllers
             {
                 Estatico.IdConectado = 0;
                 Estatico.UserName = "";
-                return RedirectToAction("_register", new RouteValueDictionary { { "msjs", "NOADD" } });
+                return RedirectToAction("Register", new { mensaje = "NOADD" });
             }
         }
 
@@ -63,15 +70,13 @@ namespace Calculadora.Controllers
                         {
                             Estatico.IdConectado = 0;
                             Estatico.UserName = "";
-                            string msjs = "error";
-                            return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", msjs } });
+                            return View("Login", "error");
                         }
                         else
                         {
                             Estatico.IdConectado = 0;
                             Estatico.UserName = "";
-                            string msjs = "noLogin";
-                            return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", msjs } });
+                            return View("Login", "noLogin");
                         }
                     }
                     else
@@ -91,8 +96,7 @@ namespace Calculadora.Controllers
                     {
                         Estatico.IdConectado = 0;
                         Estatico.UserName = "";
-                        string msjs = "error";
-                        return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", msjs } });
+                        return View("Login", "error");
                     }
                 }
 
@@ -102,20 +106,21 @@ namespace Calculadora.Controllers
 
                 Estatico.IdConectado = 0;
                 Estatico.UserName = "";
-                return RedirectToAction("Conectarse", new RouteValueDictionary { { "msjs", "error" } });
+                return View("Login", "error");
 
             }
 
         }
 
-        public IActionResult Register([FromQuery(Name = "msjs")] string? mensaje)
+        public IActionResult Register(string? mensaje, Usuario? user)
         {
-            return PartialView("_register", mensaje);
+            ViewBag.mensaje = mensaje;
+            return View(user);
         }
 
-        public IActionResult Conectarse([FromQuery(Name = "msjs")] string? mensaje)
+        public IActionResult Conectarse()
         {
-            return PartialView("_login", mensaje);
+            return View("Login");
         }
         public IActionResult WatchUserAccount()
         {
