@@ -33,18 +33,12 @@ namespace Calculadora.Controllers
                 }
                 else
                 {
-                    if (ModelState.IsValid)
-                    {
-                        _repository.AddUserWithPasswd(user);
-                        Estatico.IdConectado = _repository.GetIdByUser(user);
-                        Estatico.UserName = user.NombreUsuario;
-                        return Redirect("/Home/CalculadoraCon");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Register", new { user = user });
 
-                    }
+                    _repository.AddUserWithPasswd(user);
+                    Estatico.IdConectado = _repository.GetIdByUser(user);
+                    Estatico.UserName = user.NombreUsuario;
+                    return Redirect("/Home/CalculadoraCon");
+
                 }
 
 

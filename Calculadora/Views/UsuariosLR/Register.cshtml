@@ -94,17 +94,13 @@
 
     </script>
     <form class="form" method="post" action="/UsuariosLR/AddUser">
-        <span class="title">(Registro)😎➕</span>
-        <span class="sub mb">Si quieres guardar tus operaciones debes Registrarte 😁</span>
-        <img class="avatar" alt="Logo Administrador" src="~/img/logo.png" width="90px" height="90px" />
+        <span class="title" style="font-family:'LOGIN'; font-size:2rem"> REGISTRO 😎</span>
         <label for="email">Correo electrónico:</label>
         <input type="email" name="Email" class="input" placeholder="Email" required>
         <label for="nombreUsuario">Nombre de Usuario:</label>
         <input type="text" name="NombreUsuario" class="input" placeholder="Username" required>
-
-        <label asp-for="Password">Contraseña:</label>
-        <input type="password" asp-for="Password" class="input" placeholder="Contraseña" />
-        <div asp-validation-for="Password"></div>
+        <label for="password">Contraseña:</label>
+        <input type="password" name="Password" class="input" placeholder="Contraseña" required>
         <label for="confirm_password">Repite contraseña:</label>
         <input type="password" name="confirm_password" class="input" placeholder="Repite contraseña" onkeyup='checkPassword();' required>
         <span class="sub">¿Ya tienes una cuenta? <a asp-action="Conectarse" asp-controller="UsuariosLR">Inicia sesión</a></span>
@@ -119,27 +115,44 @@
 
 @section Scripts{
     @{
-      await Html.RenderPartialAsync("_ValidationScriptsPartial");
-  }
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 
     <script>
-        
-
         function checkPassword() {
             var password = document.querySelector('input[name=Password]');
             var confirm_password = document.querySelector('input[name=confirm_password]');
             var warning = document.querySelector('#warning');
             var register_btn = document.querySelector('#register-btn');
+
+            // Validación de longitud mínima de contraseña
+            if (password.value.length < 8) {
+                warning.textContent = "La contraseña debe tener al menos 8 caracteres.";
+                warning.style.color = "red";
+                register_btn.disabled = true;
+                return;
+            }
+
+            // Validación de complejidad de contraseña
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
+            if (!regex.test(password.value)) {
+                warning.textContent = "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial.";
+                warning.style.color = "red";
+                register_btn.disabled = true;
+                return;
+            }
+
+            // Validación de coincidencia de contraseñas
             if (password.value != confirm_password.value) {
                 warning.textContent = "Las contraseñas no coinciden";
                 warning.style.color = "red";
                 register_btn.disabled = true;
-            } else {
-                warning.textContent = "";
-                register_btn.disabled = false;
+                return;
             }
 
+            // Todas las validaciones pasaron
+            warning.textContent = "";
+            register_btn.disabled = false;
         }
-        
     </script>
-      }
+}

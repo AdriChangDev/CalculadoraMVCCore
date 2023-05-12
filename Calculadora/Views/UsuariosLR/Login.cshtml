@@ -91,18 +91,16 @@
     }
 
 <form class="form" method="post" action="/UsuariosLR/Login">
-    <span class="title">(Log-In)😎🔎</span>
-    <span class="sub mb">Si quieres guardar tus operaciones debes Loggearte 😁</span>
-    <img class="avatar" alt="Logo Administrador" src="~/img/logo.png" width="90px" height="90px" />
+    <span class="title" style="font-family:'LOGIN'; font-size:2rem"> INICIO DE SESION😎</span>
     <label for="email">Correo electrónico o Nombre Usuario:</label>
-    <input id="email" type="text" name="Email" class="input" placeholder="email" onkeyup="copyEmail()">
+    <input id="email" type="text" name="Email" class="input" placeholder="Email or Username" onkeyup="copyEmail()">
     <input type="text" name="NombreUsuario" class="input" placeholder="Username" style="display:none;">
     <label for="password">Contraseña:</label>
     <input type="password" name="Password" class="input" placeholder="password">
-    <span class="sub"> No tienes cuenta ? <a asp-action="Register" asp-controller="UsuariosLR">Registrate</a></span>
-    @if (msjs==null)
+    <span class="sub">¿No tienes Cuenta ? <a asp-action="Register" asp-controller="UsuariosLR">Registrate</a></span>
+    @if (string.IsNullOrEmpty(msjs))
     {
-        
+
     }
     else if (msjs != null && msjs == "noLogin")
     {
@@ -116,7 +114,7 @@
             No se ha encontrado su cuenta Para registrarse pinche <a style="color:blue; pointer-events:auto; text-decoration:none;" asp-action="Register" asp-controller="UsuariosLR">Aqui</a>
         </label>
     }
-   
+
     <button>Log-in</button>
 </form>
 
