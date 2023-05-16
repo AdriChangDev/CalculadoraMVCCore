@@ -1,7 +1,6 @@
-﻿@model Calculadora.Models.Usuario
-
+﻿
 @{
-
+    string msjs = Model;
     Layout = "_Layout";
 }
 @section css{
@@ -89,10 +88,7 @@
 }
 
 <div class="container">
-    <script>
-        alert(@ViewBag.Message);
-
-    </script>
+   
     <form class="form" method="post" action="/UsuariosLR/AddUser">
         <span class="title" style="font-family:'LOGIN'; font-size:2rem"> REGISTRO 😎</span>
         <label for="email">Correo electrónico:</label>
@@ -105,7 +101,7 @@
         <input type="password" name="confirm_password" class="input" placeholder="Repite contraseña" onkeyup='checkPassword();' required>
         <span class="sub">¿Ya tienes una cuenta? <a asp-action="Conectarse" asp-controller="UsuariosLR">Inicia sesión</a></span>
         <div id="warning"></div>
-        @if (@ViewBag.Message != null && @ViewBag.Message == "NOADD")
+        @if (msjs != null && msjs == "NOADD")
         {
             <input type="text" class="input" value="Ya existe un usuario con ese email/nombre de usuario" readonly style="user-select:none; pointer-events:none; color:red;" />
         }

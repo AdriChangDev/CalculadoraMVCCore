@@ -109,13 +109,11 @@ namespace Calculadora.Controllers
 
         }
 
-        public IActionResult Register(string? mensaje, Usuario? user)
+        public IActionResult Register(string? mensaje)
         {
             if (Estatico.IdConectado == 0)
             {
-                var mensajes = mensaje;
-                ViewBag.Message = mensajes;
-                return View(user);
+                return View(mensaje);
             }
             else
             {
@@ -149,7 +147,7 @@ namespace Calculadora.Controllers
             _repository.DeleteUser();
             Estatico.UserName = "";
             Estatico.IdConectado = 0;
-            return Redirect("/Home/CalculadoraCon");
+            return RedirectToAction("Index","Home");
         }
         public IActionResult ConfirmarEdicion(Usuario user)
         {

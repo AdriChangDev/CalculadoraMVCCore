@@ -37,10 +37,9 @@ namespace CalculadoraFuncional.Controllers
 
 		public IActionResult Index()
 		{
-			
 			Estatico.IdConectado = 0;
 			Estatico.UserName = "";
-			return Redirect("/Home/CalculadoraCon");
+			return View("CalculadoraCon");
 		}
 
 
